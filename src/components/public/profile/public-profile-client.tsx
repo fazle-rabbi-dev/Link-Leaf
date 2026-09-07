@@ -242,20 +242,12 @@ export function PublicProfileClient({ profile }: { profile: PublicProfile }) {
             <section className="w-full max-w-[560px] flex flex-col items-center gap-6">
                <ProfileHeader profile={profile} theme={theme} />
                {socialPosition === 'top' && (
-                  <SocialRow
-                     links={profile.links.social}
-                     theme={theme}
-                     resolvedTheme={resolvedTheme as string}
-                  />
+                  <SocialRow links={profile.links.social} theme={theme} />
                )}
                <LinkList links={profile.links.custom} theme={theme} />
                {socialPosition === 'bottom' && (
                   <div className="pt-2">
-                     <SocialRow
-                        links={profile.links.social}
-                        theme={theme}
-                        resolvedTheme={resolvedTheme as string}
-                     />
+                     <SocialRow links={profile.links.social} theme={theme} />
                   </div>
                )}
                <Link

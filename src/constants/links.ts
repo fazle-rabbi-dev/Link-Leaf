@@ -255,7 +255,12 @@ export const SOCIAL_PLATFORMS: SocialPlatform[] = [
       prefix: 'https://mastodon.social/@',
       icon: 'https://api.iconify.design/selfhst:mastodon.svg',
    },
-   { key: 'phone', label: 'Phone', prefix: 'tel:', icon: PhoneIcon },
+   {
+      key: 'phone',
+      label: 'Phone',
+      prefix: 'tel:',
+      icon: 'https://api.iconify.design/streamline-color:phone.svg',
+   },
    // {
    //    key: 'music',
    //    label: 'Music',

@@ -48,16 +48,16 @@ const AuthForm = () => {
          console.log('result:', result);
 
          // send data to backend
-         const response = await loginUserWithSocial({
+         const { body } = await loginUserWithSocial({
             provider,
             userId: result.user.uid,
          });
 
-         if (response.data.success) {
+         if (body.success) {
             toast.success('Login successful');
             Router.replace('/dashboard/profile');
          } else {
-            throw new Error(response.data.message);
+            throw new Error(body.message);
          }
       } catch (error) {
          console.error('Login failed:', error);
