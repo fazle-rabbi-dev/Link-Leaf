@@ -1,0 +1,16 @@
+{
+   "useTabs": false,
+   "tabWidth": 3,
+   "singleQuote": true,
+   "trailingComma": "all",
+   "semi": true,
+   "printWidth": 80,
+   "overrides": [
+      {
+         "files": "src/components/ui/**/*.{ts,tsx}",
+         "options": {
+            "singleQuote": false
+         }
+      }
+   ]
+}

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Private - dashboard requires auth, no SEO value
+Disallow: /dashboard/
+
+# API and internals
+Disallow: /api/
+
+Sitemap: https://link-leaf.vercel.app/sitemap.xml

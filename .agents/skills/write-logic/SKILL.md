@@ -1,0 +1,31 @@
+---
+name: write-logic
+description: >
+   Use when implementing or wiring up logic for the components, such as: data fetching, form handling, feature implementation, etc. Covers best practices for structuring and organizing code, including: separating concerns, using abstractions, and adhering to coding standards and conventions.
+metadata:
+   author: fazle-rabbi
+   version: '1.0'
+   tech-stack: 'Next.js, TailwindCSS, ShadCN'
+compatibility: Requires Next.js 16+ with App Router and TailwindCSS
+---
+
+# Rules
+
+- place contstants in `constants` folder
+- place types in `@types` folder
+- place validations in `validations` folder
+- place utils, helpers, api config and other shared functions in `lib` folder
+- place moduler stuffs in theri appropiate folder
+- separate pkg import and custom file import by leaving a blank line between them
+
+> 🚨 Important: Do not overengineer codebase by separating everything in different folders and files. Instead, focus on keeping things simple, readable, clean, and modular.
+
+## bad approach example
+
+- for 2 input fields creating: arrays of objects, one for each field
+- for few logic creating custom hooks for components.
+
+## good approach example
+
+- for 3 or more input fields creating: objects with keys for each field
+- separate logic with custom hooks when component bloated with logic
