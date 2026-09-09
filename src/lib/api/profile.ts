@@ -1,4 +1,4 @@
-import { apiRequest } from './client';
+import { apiRequestWithAuth, apiRequest } from './client';
 import type { FetchedUser, FetchedUserProfile } from '@/@types/auth';
 
 // Merged public profile (user+profile flattened on backend) — reuses existing types
@@ -22,7 +22,7 @@ export interface PublicProfileResponse {
 
 export const publishProfile = async () => {
    try {
-      const result = await apiRequest<PublicProfileResponse>(
+      const result = await apiRequestWithAuth<PublicProfileResponse>(
          `/profile/publish`,
          {
             method: 'PATCH',
@@ -30,13 +30,9 @@ export const publishProfile = async () => {
          },
       );
 
-      console.log({ publish: result });
       return result;
    } catch (error) {
-      return {
-         response: new Response(null, { status: 500 }),
-         body: { success: false, message: 'Failed to publish profile' },
-      };
+      throw error;
    }
 };
 
@@ -55,9 +51,6 @@ export async function getPublicProfile(
 
       return result;
    } catch (error) {
-      return {
-         response: new Response(null, { status: 500 }),
-         body: { success: false, message: 'Failed to fetch profile' },
-      };
+      throw error;
    }
 }
