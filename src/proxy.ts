@@ -14,7 +14,7 @@ const buildCookieHeader = (res: Response | null) => {
 
 export async function proxy(request: NextRequest) {
    const url = new URL(request.url);
-   logger.info('🚦Middleware: request received:', {
+   logger.info('📥 Middleware/Proxy - Incoming request received:', {
       '🚚 pathname': url.pathname,
       '🕑 Time': `${new Date().toLocaleTimeString()}`,
    });
@@ -41,7 +41,7 @@ export async function proxy(request: NextRequest) {
          refreshResponse = result.refreshResponse ?? null;
       } catch (error) {
          logger.error(
-            '🚦Middleware: received error on calling getLoggedInUser.',
+            '📥 Middleware/Proxy - received error on calling getLoggedInUser.',
          );
       }
    }
