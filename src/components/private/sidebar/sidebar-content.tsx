@@ -31,6 +31,7 @@ import { useShallow } from 'zustand/shallow';
 import { PUBLIC_PROFILE_URL } from '@/constants';
 import { useAppearanceStore } from '@/store/useAppearanceStore';
 import { toast } from 'sonner';
+import logoutUserAction from '@/actions/logout';
 
 interface NavLinkProps {
    href: string;
@@ -128,14 +129,20 @@ export function SidebarContent({
    };
 
    const handleLogoutClick = async () => {
-      await logoutUser();
-      Router.push('/auth');
-      setAuth({
-         user: null,
-         profile: null,
-         isLoggedIn: false,
-         isLoading: false,
-      });
+      // Important: if user on profile page -> when logout action get executed -> cookies will get cleared -> and automatically get re-executed the profile page since it is depend on cookies to fetch profile
+      const body = await logoutUserAction();
+
+      if (body?.success) {
+         toast.success('Logout successful');
+         setAuth({
+            user: null,
+            profile: null,
+            isLoggedIn: false,
+         });
+         Router.push('/auth');
+      } else {
+         toast.error('Logout failed');
+      }
    };
 
    const handleCopyUrl = async () => {
@@ -157,6 +164,11 @@ export function SidebarContent({
       }
       handleToggleSidebar();
    };
+
+   console.log({
+      loggedInUser,
+      profile,
+   });
 
    return (
       <TooltipProvider>
