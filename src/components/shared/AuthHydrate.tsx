@@ -2,9 +2,8 @@
 
 'use client';
 
-import { getLoggedInUser } from '@/lib/api/auth';
+import logger from '@/lib/logger';
 import { useAuthStore } from '@/store/useAuthStore';
-import { useLinksStore } from '@/store/useLinksStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -16,18 +15,17 @@ const AuthHydrate = ({
    const hydrateAuth = useAuthStore((state) => state.hydrateAuth);
    const isLoading = useAuthStore((state) => state.isLoading);
    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-
    const Router = useRouter();
 
    useEffect(() => {
+      logger.info('🎨 AuthHydrate component mounted');
       hydrateAuth();
-   });
-   // ? empty dependency array to run only once at first mount
+   }, []); // ? empty dependency array to run only once at first mount
 
    // prevent browser back button taking to private page after logout
    useEffect(() => {
       if (!isLoading && !isLoggedIn) Router.replace('/auth');
-   }, []);
+   }); // ? no dependency array to run on every render
 
    return <div>{children}</div>;
 };

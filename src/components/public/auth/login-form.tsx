@@ -2,18 +2,18 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { MailWarningIcon } from 'lucide-react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/spinner';
 import { loginSchema, type LoginFormData } from '@/validations/auth.validation';
-import { loginUser } from '@/lib/api/auth';
-import { toast } from 'sonner';
 import { loginFields } from '@/constants/authform';
 import { FormInputField } from '@/components/ui/form-input-field';
-import { useRouter } from 'next/navigation';
 import logger from '@/lib/logger';
-import { useState } from 'react';
+import loginUserAction from '@/actions/login';
+import { setAccessToken } from '@/lib/api/token';
 
 type LoginFormProps = {
    isLoading: boolean;
@@ -35,12 +35,14 @@ const LoginForm = ({ isLoading, setIsLoading }: LoginFormProps) => {
 
    const onSubmit = async (formData: LoginFormData) => {
       setIsLoading(true);
-      setNeedsEmailVerification(false);
-      // await new Promise((resolve) => setTimeout(resolve, 1000));
 
       try {
-         const { response, body } = await loginUser(formData);
-         if (response.ok) {
+         const body = await loginUserAction(formData);
+
+         if (body.success) {
+            // save accessToken in localstorage to use for crud operation
+            setAccessToken(body.data.accessToken);
+
             toast.success(body.message);
             Router.replace('/dashboard/profile');
             // auth state update happens from profile page
@@ -52,6 +54,7 @@ const LoginForm = ({ isLoading, setIsLoading }: LoginFormProps) => {
          }
       } catch (error) {
          if (error instanceof Error) {
+            logger.error('LoginForm: error while logging in:', error);
             toast.error(error.message);
          }
       } finally {

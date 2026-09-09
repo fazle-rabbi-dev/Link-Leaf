@@ -4,16 +4,17 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, LogOut, MenuIcon } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-
+import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+
 import { Button } from '../ui/button';
 import ThemeToggler from './ThemeToggler';
 import { useSidebarStore } from '@/store/useSidebarStore';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useAuthStore } from '@/store/useAuthStore';
-import { logoutUser } from '@/lib/api/auth';
 import Logo from './Logo';
 import { CanvasText } from '../ui/canvas-text';
+import logoutUserAction from '@/actions/logout';
 
 const Header = () => {
    const [isScrolled, setIsScrolled] = useState(false);
@@ -22,13 +23,9 @@ const Header = () => {
 
    const isMobile = useIsMobile();
    const { toggleMobile } = useSidebarStore();
-   const isLoggedInState = useAuthStore((state) => state.isLoggedIn);
    const setAuth = useAuthStore((state) => state.setAuth);
 
-   // const isDashboardPage = pathName?.startsWith('/dashboard');
    const currentPage = pathName?.split('/')[2]?.toUpperCase();
-
-   const publicPages = ['/', 'auth', 'verify-email'];
    const isLoggedIn = pathName.startsWith('/dashboard');
 
    useEffect(() => {
@@ -42,13 +39,20 @@ const Header = () => {
    }, []);
 
    const handleLogoutClick = async () => {
-      await logoutUser();
-      Router.push('/auth');
-      setAuth({
-         user: null,
-         profile: null,
-         isLoggedIn: false,
-      });
+      // Important: if user on profile page -> when logout action get executed -> cookies will get cleared -> and automatically get re-executed the profile page since it is depend on cookies to fetch profile
+      const body = await logoutUserAction();
+
+      if (body?.success) {
+         toast.success('Logout successful');
+         setAuth({
+            user: null,
+            profile: null,
+            isLoggedIn: false,
+         });
+         Router.push('/auth');
+      } else {
+         toast.error('Logout failed');
+      }
    };
 
    return (

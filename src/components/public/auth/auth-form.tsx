@@ -20,6 +20,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/ui/spinner';
 import { loginUserWithSocial } from '@/lib/api/auth';
+import logger from '@/lib/logger';
 
 type AuthMode = 'login' | 'register';
 
@@ -31,9 +32,7 @@ const AuthForm = () => {
 
    const Router = useRouter();
 
-   const handleSocialLoginProvider = async (
-      provider: SocialLoginProvider['id'],
-   ) => {
+   const handleSocialLogin = async (provider: SocialLoginProvider['id']) => {
       setClickedProvider(provider);
       setisLoading(true);
 
@@ -45,7 +44,8 @@ const AuthForm = () => {
          } else {
             result = await signInWithPopup(auth, githubProvider);
          }
-         console.log('result:', result);
+
+         logger.success('Social login provider response:', result);
 
          // send data to backend
          const { body } = await loginUserWithSocial({
@@ -56,11 +56,8 @@ const AuthForm = () => {
          if (body.success) {
             toast.success('Login successful');
             Router.replace('/dashboard/profile');
-         } else {
-            throw new Error(body.message);
-         }
+         } else throw new Error(body.message);
       } catch (error) {
-         console.error('Login failed:', error);
          toast.error(
             error instanceof Error
                ? error.message
@@ -122,7 +119,7 @@ const AuthForm = () => {
                         type="button"
                         variant="outline"
                         className="w-full"
-                        onClick={() => handleSocialLoginProvider(social.id)}
+                        onClick={() => handleSocialLogin(social.id)}
                         disabled={isLoading}
                      >
                         {/* eslint-disable-next-line @next/next/no-img-element */}

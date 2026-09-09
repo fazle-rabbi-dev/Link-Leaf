@@ -23,7 +23,7 @@ export const useAuthStore = create<AuthState>((set) => ({
    profile: null,
 
    hydrateAuth: async () => {
-      logger.info('🔥 AuthHydrate: hydrate fired');
+      logger.info('🔥 hydrateAuth function fired');
 
       try {
          const { body } = await getLoggedInUser({}, 'authhydrate');
@@ -44,7 +44,9 @@ export const useAuthStore = create<AuthState>((set) => ({
                );
          }
       } catch (error) {
-         logger.error('🔥 AuthHydrate: hydrate: catch:', error);
+         logger.error(
+            'hydrateAuth function received error while calling getLoggedInUser',
+         );
       } finally {
          set({
             isLoading: false,
@@ -54,8 +56,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 
    setAuth: (data) =>
       set((state) => {
-         // console.log('setauth called with:', data);
-
          return {
             ...state,
             ...data,

@@ -53,7 +53,6 @@ const ProfileClient = ({
       register,
       handleSubmit,
       watch,
-      reset,
       formState: { errors, isSubmitting, isDirty },
    } = useForm<ProfileFormData>({
       resolver: zodResolver(profileSchema),
@@ -77,16 +76,16 @@ const ProfileClient = ({
    const handlePublishProfile = async () => {
       try {
          const { body } = await publishProfile();
+
          if (body.success) {
             toast.success(
                isPublished ? 'Profile unpublished' : 'Profile published',
             );
             setAuth({ profile: { ...profile, isPublished: !isPublished } });
          } else throw new Error(body.message);
-      } catch (e) {
-         toast.error(
-            e instanceof Error ? e.message : 'Failed to update publish state',
-         );
+      } catch (error) {
+         logger.error('ProfileClient: error while publishing profile:', error);
+         if (error instanceof Error) toast.error(error.message);
       }
    };
 
@@ -126,11 +125,8 @@ const ProfileClient = ({
             });
          } else throw new Error(res.message);
       } catch (error) {
-         logger.error('ProfileClient: error during update user:', error);
-
-         if (error instanceof Error) {
-            toast.error(error.message);
-         }
+         logger.error('ProfileClient: error while updating profile:', error);
+         if (error instanceof Error) toast.error(error.message);
       }
    };
 

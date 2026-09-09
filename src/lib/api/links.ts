@@ -1,4 +1,5 @@
-import { apiRequest } from './client';
+import { apiRequestWithAuth } from './client';
+
 import type {
    AddCustomLinkSuccessResponse,
    AddSocialLinkSuccessResponse,
@@ -17,7 +18,7 @@ import logger from '../logger';
 
 export const addSocialLink = async (platform: string, url: string) => {
    try {
-      const result = await apiRequest<AddSocialLinkSuccessResponse>(
+      const result = await apiRequestWithAuth<AddSocialLinkSuccessResponse>(
          '/profile/links/social',
          {
             method: 'POST',
@@ -39,7 +40,7 @@ export const updateSocialLink = async (
    url: string,
 ) => {
    try {
-      const result = await apiRequest<UpdateSocialLinkSuccessResponse>(
+      const result = await apiRequestWithAuth<UpdateSocialLinkSuccessResponse>(
          `/profile/links/social/${id}`,
          {
             method: 'PATCH',
@@ -57,7 +58,7 @@ export const updateSocialLink = async (
 
 export const deleteSocialLink = async (id: string) => {
    try {
-      const result = await apiRequest<DeleteLinkSuccessResponse>(
+      const result = await apiRequestWithAuth<DeleteLinkSuccessResponse>(
          `/profile/links/social/${id}`,
          {
             method: 'DELETE',
@@ -124,9 +125,8 @@ export const addCustomLink = async ({
 }: AddCustomLinkParams) => {
    try {
       const body = buildCustomLinkBody({ title, url, icon, iconFile });
-      // return console.log({ body });
 
-      const result = await apiRequest<AddCustomLinkSuccessResponse>(
+      const result = await apiRequestWithAuth<AddCustomLinkSuccessResponse>(
          '/profile/links/custom',
          {
             method: 'POST',
@@ -167,9 +167,8 @@ export const updateCustomLink = async ({
          iconFile,
          shouldRemoveIcon,
       });
-      // return console.log({ body });
 
-      const result = await apiRequest<UpdateCustomLinkSuccessResponse>(
+      const result = await apiRequestWithAuth<UpdateCustomLinkSuccessResponse>(
          `/profile/links/custom/${id}`,
          {
             method: 'PATCH',
@@ -187,7 +186,7 @@ export const updateCustomLink = async ({
 
 export const deleteCustomLink = async (id: string) => {
    try {
-      const result = await apiRequest<DeleteLinkSuccessResponse>(
+      const result = await apiRequestWithAuth<DeleteLinkSuccessResponse>(
          `/profile/links/custom/${id}`,
          {
             method: 'DELETE',
@@ -215,7 +214,7 @@ export const toggleLinkActive = async (
    variant: 'social' | 'custom',
 ) => {
    try {
-      const result = await apiRequest<ToggleLinkResponse>(
+      const result = await apiRequestWithAuth<ToggleLinkResponse>(
          `/profile/links/${variant}/${id}/toggle`,
          {
             method: 'PATCH',

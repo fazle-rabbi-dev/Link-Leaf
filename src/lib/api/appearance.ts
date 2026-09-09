@@ -1,5 +1,5 @@
 import logger from '../logger';
-import { apiRequest } from './client';
+import { apiRequestWithAuth } from './client';
 
 interface UpdateAppearanceResponse {
    success: boolean;
@@ -11,7 +11,7 @@ export const saveAppearanceChanges = async (
    payload: Record<string, unknown>,
 ) => {
    try {
-      const result = await apiRequest<UpdateAppearanceResponse>(
+      const result = await apiRequestWithAuth<UpdateAppearanceResponse>(
          `/profile/theme`,
          {
             method: 'PATCH',
@@ -29,7 +29,7 @@ export const saveAppearanceChanges = async (
 
 export const changeSocialPosition = async (position: 'top' | 'bottom') => {
    try {
-      const result = await apiRequest<UpdateAppearanceResponse>(
+      const result = await apiRequestWithAuth<UpdateAppearanceResponse>(
          `/profile/social-icon-position`,
          {
             method: 'PATCH',

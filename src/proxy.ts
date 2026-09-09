@@ -14,7 +14,10 @@ const buildCookieHeader = (res: Response | null) => {
 
 export async function proxy(request: NextRequest) {
    const url = new URL(request.url);
-   logger.info('🔌 PROXY: request received. From url:', url);
+   logger.info('📥 Middleware/Proxy - Incoming request received:', {
+      '🚚 pathname': url.pathname,
+      '🕑 Time': `${new Date().toLocaleTimeString()}`,
+   });
 
    // get cookies that saved in browser; after refresh token these cookies bec
    const cookies = request.cookies;
@@ -37,7 +40,9 @@ export async function proxy(request: NextRequest) {
          isLoggedIn = result.body.success;
          refreshResponse = result.refreshResponse ?? null;
       } catch (error) {
-         logger.error('PROXY: error during fetching user:', error);
+         logger.error(
+            '📥 Middleware/Proxy - received error on calling getLoggedInUser.',
+         );
       }
    }
    // ------------------------------- fetch user + handle refresh token -------------------------------

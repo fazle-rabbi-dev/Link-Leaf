@@ -9,7 +9,6 @@ import type {
    RegisterResponse,
    UpdateUserResponse,
 } from '@/@types/auth';
-import { toast } from 'sonner';
 import logger from '../logger';
 import { ProfileFormData } from '@/validations/profile.validation';
 
@@ -23,6 +22,10 @@ const identifyLoginType = (value: string) => {
    return isEmail ? 'email' : 'username';
 };
 
+// ============================================================
+// === Register User ===
+// ============================================================
+
 export const registerUser = async (formData: RegisterFormData) => {
    try {
       const result = await apiRequest<RegisterResponse>('/auth/register', {
@@ -30,13 +33,17 @@ export const registerUser = async (formData: RegisterFormData) => {
          body: formData,
       });
 
-      console.log('Registration response:', result);
+      logger.info('Registration response:', result);
       return result;
    } catch (error) {
-      console.error('Registration failed:', error);
+      logger.error('Registration failed:', error);
       throw error;
    }
 };
+
+// ============================================================
+// === Login User ===
+// ============================================================
 
 export const loginUser = async (formData: LoginFormData) => {
    try {
@@ -52,13 +59,17 @@ export const loginUser = async (formData: LoginFormData) => {
          },
       });
 
-      console.log('Login response:', result);
+      logger.info('Login response:', result);
       return result;
    } catch (error) {
-      console.error('Login failed:', error);
+      logger.error('Login failed:', error);
       throw error;
    }
 };
+
+// ============================================================
+// === Login User With Social ===
+// ============================================================
 
 type LoginWithSocialData = {
    provider: 'github' | 'google';
@@ -77,15 +88,17 @@ export const loginUserWithSocial = async (loginData: LoginWithSocialData) => {
          },
       });
 
-      console.log('Social login response:', result);
-      toast.success('Login successful');
+      logger.info('Social login successful');
       return result;
    } catch (error) {
-      console.error('Social login failed:', error);
-      toast.error('Login failed. Try again later');
+      logger.error('Social login failed:', error);
       throw error;
    }
 };
+
+// ============================================================
+// === Logout User ===
+// ============================================================
 
 export const logoutUser = async () => {
    try {
@@ -93,29 +106,26 @@ export const logoutUser = async () => {
          method: 'DELETE',
       });
 
-      console.log('Logout response:', result);
-      if (result.body.success) {
-         toast.success('You have been logged out');
-      } else {
-         toast.error('Logout failed');
-      }
+      logger.info('Logout response:', result);
       return result;
    } catch (error) {
-      console.error('Logout failed:', error);
-      toast.error('Logout failed');
+      logger.error('Logout failed:', error);
+      throw error;
    }
 };
 
 // ============================================================
-// === Fetch LoggedIn User + Refresh Token ===
+// === Fetch LoggedIn User + Perform Refresh Token ===
 // ============================================================
 
 type GetLoggedInUserParams = {
    Cookie?: string;
 };
 
-// ApiResult<FetchedUserSuccessResponse> + the raw refresh Response so proxy
-// can forward Set-Cookie to the browser
+/* 
+ - ApiResult<FetchedUserSuccessResponse> + the raw refresh Response 
+   so proxy can forward Set-Cookie to the browser
+*/
 type GetLoggedInUserResult = ApiResult<FetchedUserResponse> & {
    refreshResponse: Response | null;
 };
@@ -124,7 +134,10 @@ export const getLoggedInUser = async (
    headers: GetLoggedInUserParams = {},
    source?: string,
 ): Promise<GetLoggedInUserResult> => {
-   logger.success('getLoggedInUser fired & called from:', source || 'proxy');
+   logger.info('🚀 Fetching user:', {
+      '🚚 initiator': source || 'proxy',
+   });
+
    let result;
    let refreshResponse: Response | null = null;
 
@@ -136,8 +149,7 @@ export const getLoggedInUser = async (
       // if fetching user failed: refresh the token
       if (!result.body.success) {
          // it's ok to use: type -> FetchedUserSuccessResponse here since both contains same shape
-         console.log({ headers });
-         logger.info('started refreshing token with', headers);
+         logger.info('🔁 Refreshing token with:', headers);
 
          const res = await apiRequest<RefreshTokenSuccessResponse>(
             '/auth/refresh-token',
@@ -168,7 +180,8 @@ export const getLoggedInUser = async (
 
          // if token refreshed successfully: fetch user again
          // 🚨 but with new accessToken because refresh only happens when no valid accessToken
-         logger.info('token refreshed successfully');
+         logger.success('Token refreshed successfully');
+
          result = await apiRequest<FetchedUserSuccessResponse>('/users/me', {
             headers: {
                Cookie: `accessToken=${res.body.data.accessToken}`,
@@ -176,12 +189,19 @@ export const getLoggedInUser = async (
          });
       }
 
+      logger.success('User fetched successfully', {
+         name: result.body.data.user?.name,
+      });
       return { ...result, refreshResponse };
    } catch (error) {
       logger.error('Fetching user failed:', error);
       throw error;
    }
 };
+
+// ============================================================
+// === Update User ===
+// ============================================================
 
 export const updateUser = async (formData: FormData | ProfileFormData) => {
    try {
@@ -224,6 +244,10 @@ export const ResendVerificationEmail = async (email: string) => {
       throw error;
    }
 };
+
+// ============================================================
+// === Verify Email ===
+// ============================================================
 
 type VerifyEmailResponse = {
    success: boolean;

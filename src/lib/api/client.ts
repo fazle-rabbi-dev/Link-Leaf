@@ -1,5 +1,7 @@
 import { API_BASE_URL } from '@/lib/env';
 
+import { getAccessToken } from './token';
+
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 /* 
@@ -85,4 +87,20 @@ export async function apiRequest<T = unknown>(
    const jsonData = (await response.json()) as T;
 
    return { response, body: jsonData };
+}
+
+/**
+ * Client-side wrapper around apiRequest:
+ * auto-attaches accessToken from localStorage as Bearer token.
+ * Explicit `token` in options still wins.
+ *
+ * Do NOT use on server (no localStorage there) - use `apiRequest`
+ * with Cookie header instead.
+ */
+export async function apiRequestWithAuth<T = unknown>(
+   path: string,
+   options: ApiRequestOptions = {},
+): Promise<ApiResult<T>> {
+   const token = options.token ?? getAccessToken() ?? undefined;
+   return apiRequest<T>(path, { ...options, ...(token ? { token } : {}) });
 }
