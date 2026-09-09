@@ -39,7 +39,7 @@ const LEVELS: Record<
    },
    error: {
       label: 'ERROR',
-      symbol: '✖',
+      symbol: '🚨',
       chalk: chalk.bold.red,
       css: 'color:#ef4444;font-weight:700;background:#fef2f2;padding:2px 8px;border-radius:4px;',
    },
