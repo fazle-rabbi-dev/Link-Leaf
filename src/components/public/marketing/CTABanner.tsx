@@ -6,7 +6,7 @@ import SectionHeader from './SectionHeader';
 const CTABanner = () => {
    return (
       <section className="max-body mt-24 text-white">
-         <div className="rounded-2xl bg-primary py-10">
+         <div className="rounded-2xl bg-primary py-10 px-3">
             <SectionHeader
                heading="Ready to map your own custom BioLink?"
                paragraph="Claim your unique handle today and connect your whole audience seamlessly. Set up your links in minutes."
@@ -20,7 +20,7 @@ const CTABanner = () => {
                   effect="scale"
                   className="flex-center gap-2 bg-foreground font-black text-background hover:bg-foreground/85"
                >
-                  <Link href="/login">
+                  <Link href="/auth">
                      <span>Get Started Free</span>
                      <ArrowRight />
                   </Link>

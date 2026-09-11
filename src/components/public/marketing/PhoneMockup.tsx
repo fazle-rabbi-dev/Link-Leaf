@@ -6,17 +6,17 @@ import { Button } from '../../ui/button';
 const SOCIAL_LINKS = [
    {
       name: 'twitter',
-      href: 'https://twitter.com/sony',
+      href: 'https://x.com/SonnySangha',
       icon: '/x.svg',
    },
    {
       name: 'instagram',
-      href: 'https://instagram.com/sony',
+      href: 'https://www.instagram.com/ssssangha',
       icon: '/instagram.svg',
    },
    {
       name: 'linkedin',
-      href: 'https://linkedin.com/sony',
+      href: 'https://uk.linkedin.com/in/sonnysangha',
       icon: '/linkedin.svg',
    },
 ];
@@ -24,19 +24,19 @@ const SOCIAL_LINKS = [
 const CUSTOM_LINKS = [
    {
       name: 'My Portfolio Website',
-      href: 'https://sonysangha.com',
+      href: 'https://www.papareact.com/',
    },
    {
       name: 'Book a 1:1 Call',
-      href: 'https://calendly.com/sony',
+      href: 'https://www.papareact.com/',
    },
    {
-      name: 'Latest Project: TaskFlow',
-      href: 'https://taskflow-app.com',
+      name: 'Build airbnb clone',
+      href: 'https://www.papareact.com/',
    },
    {
       name: 'Download My Resume',
-      href: 'https://sony-resume.pdf',
+      href: 'https://www.papareact.com/',
    },
 ];
 
