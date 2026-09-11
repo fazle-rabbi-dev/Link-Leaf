@@ -165,11 +165,6 @@ export function SidebarContent({
       handleToggleSidebar();
    };
 
-   console.log({
-      loggedInUser,
-      profile,
-   });
-
    return (
       <TooltipProvider>
          <div className="flex h-full flex-col overflow-auto">

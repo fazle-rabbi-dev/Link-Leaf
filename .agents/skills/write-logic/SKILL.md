@@ -20,6 +20,11 @@ compatibility: Requires Next.js 16+ with App Router and TailwindCSS
 
 > 🚨 Important: Do not overengineer codebase by separating everything in different folders and files. Instead, focus on keeping things simple, readable, clean, and modular.
 
+## Zustand Rules
+
+- When subscribing up to 3 states, use individual selectors.
+- When subscribing to more than three states, use the useShallow hook and return object + destructure 
+
 ## bad approach example
 
 - for 2 input fields creating: arrays of objects, one for each field

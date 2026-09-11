@@ -18,11 +18,6 @@ export const useSidebarStore = create<SidebarState>((set) => ({
 
    toggleMobile: () =>
       set((state) => {
-         console.log('toggle mobile fires', {
-            isMobileOpen: state.isMobileOpen,
-            isCollapsed: state.isCollapsed,
-         });
-
          return { isMobileOpen: !state.isMobileOpen };
       }),
    toggleCollapsed: () => set((state) => ({ isCollapsed: !state.isCollapsed })),

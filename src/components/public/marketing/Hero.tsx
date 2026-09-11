@@ -1,11 +1,17 @@
+'use client';
+
 import { ArrowRight, MousePointerClick, Sparkle } from 'lucide-react';
 import Link from 'next/link';
+
+import { PUBLIC_PROFILE_URL } from '@/constants';
 
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import PhoneMockup from './PhoneMockup';
 
 const Hero = () => {
+   const liveExampleUrl = PUBLIC_PROFILE_URL('antonio');
+
    return (
       <section className="border-b pb-20">
          <div className="max-body relative grid grid-cols-1 gap-x-4 gap-y-10 lg:grid-cols-[60%_40%] lg:items-center">
@@ -43,7 +49,7 @@ const Hero = () => {
                      effect="scale"
                      className="flex-center gap-2"
                   >
-                     <Link href="">
+                     <Link href="/auth">
                         <span className="font-bold">Create your Leaf page</span>
                         <ArrowRight />
                      </Link>
@@ -56,7 +62,7 @@ const Hero = () => {
                      effect="scale"
                      className="flex-center gap-2"
                   >
-                     <Link href="">
+                     <Link suppressHydrationWarning href={liveExampleUrl}>
                         <MousePointerClick />
                         <span className="font-bold">See live example</span>
                      </Link>

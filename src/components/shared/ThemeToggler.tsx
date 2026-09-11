@@ -1,31 +1,31 @@
-"use client"
+'use client';
 
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
-import { useEffect, useState } from "react"
-import { Button } from "../ui/button"
+import { useEffect, useState } from 'react';
+import { Button } from '../ui/button';
 
 const ThemeToggler = () => {
-  const [mounted, setMounted] = useState(false)
-  const { resolvedTheme, setTheme } = useTheme()
-  const isDarkMode = resolvedTheme === "dark"
+   const [mounted, setMounted] = useState(false);
+   const { resolvedTheme, setTheme } = useTheme();
+   const isDarkMode = resolvedTheme === 'dark';
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+   useEffect(() => {
+      setMounted(true);
+   }, []);
 
-  if (!mounted) return <span className="opacity-0" />
+   if (!mounted) return <span className="opacity-0" />;
 
-  return (
-    <Button
-      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      variant="outline"
-    >
-      {isDarkMode ? <Sun /> : <Moon />}
-      <span>{isDarkMode ? "Light" : "Dark"}</span>
-    </Button>
-  )
-}
+   return (
+      <Button
+         onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+         variant="outline"
+      >
+         {isDarkMode ? <Sun /> : <Moon />}
+         {/* <span>{isDarkMode ? "Light" : "Dark"}</span> */}
+      </Button>
+   );
+};
 
-export default ThemeToggler
+export default ThemeToggler;

@@ -63,7 +63,6 @@ export function CustomLinkFormModal({
    useEffect(() => {
       if (!emojiPickerOpen) return;
       const handleClickOutside = (e: MouseEvent) => {
-         console.log('handleClickOutside', e.target);
          const target = e.target as Node;
          if (
             emojiPickerRef.current &&
@@ -76,7 +75,6 @@ export function CustomLinkFormModal({
       };
       document.addEventListener('mousedown', handleClickOutside);
       return () => {
-         console.log('removeEventListener');
          return document.removeEventListener('mousedown', handleClickOutside);
       };
    }, [emojiPickerOpen]);

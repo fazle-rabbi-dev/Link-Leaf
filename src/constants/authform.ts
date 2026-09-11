@@ -17,14 +17,14 @@ export const registerFields: FormField[] = [
    {
       name: 'name',
       label: 'NAME',
-      placeholder: 'Maya',
+      placeholder: 'Antonio Erdeljack',
       type: 'text',
       icon: User,
    },
    {
       name: 'username',
       label: 'CHOOSE USERNAME HANDLE',
-      placeholder: 'mayadesigns',
+      placeholder: 'antonio',
       type: 'text',
       icon: User,
       prefix: 'leaf.app/',
@@ -32,7 +32,7 @@ export const registerFields: FormField[] = [
    {
       name: 'email',
       label: 'EMAIL ADDRESS',
-      placeholder: 'maya@leaf.app',
+      placeholder: 'antonio@gmail.com',
       type: 'email',
       icon: Mail,
    },
@@ -50,7 +50,7 @@ export const loginFields: FormField[] = [
    {
       name: 'emailOrUsername',
       label: 'EMAIL OR USERNAME',
-      placeholder: 'maya@leaf.app or maya_designs',
+      placeholder: 'antonio@gmail.com or antonio',
       type: 'text',
       icon: User,
    },

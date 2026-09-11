@@ -1,5 +1,7 @@
 import chalk from 'chalk';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 // Alias console so `compiler.removeConsole` (which strips `console.*` calls)
 // does NOT strip logger output — it looks for `console.xxx(...)` shape.
 const c = console;
@@ -53,6 +55,8 @@ const LEVELS: Record<
 
 // ── core ────────────────────────────────────────────────────────────
 function print(level: Level, ...args: unknown[]) {
+   if (isProd) return;
+
    const { label, symbol, chalk: style, css } = LEVELS[level];
 
    if (isBrowser) {
@@ -107,6 +111,8 @@ export const logger = {
    debug: (...args: unknown[]) => print('debug', ...args),
    /** unstyled but still with spacing */
    log: (...args: unknown[]) => {
+      if (isProd) return;
+
       if (isBrowser) {
          c.log('');
          c.log(...args);

@@ -2,11 +2,13 @@
 
 import { cookies } from 'next/headers';
 import setCookieParser from 'set-cookie-parser';
-import { loginUser } from '@/lib/api/auth';
-import { LoginFormData } from '@/validations/auth.validation';
+import { loginUserWithSocial } from '@/lib/api/auth';
 
-const loginUserAction = async (formData: LoginFormData) => {
-   const { response, body } = await loginUser(formData);
+const socialLoginUserAction = async (
+   provider: 'github' | 'google',
+   userId: string,
+) => {
+   const { response, body } = await loginUserWithSocial({ provider, userId });
    const cookieStore = await cookies();
 
    const rawCookies = response?.headers.getSetCookie?.() ?? [];
@@ -18,7 +20,8 @@ const loginUserAction = async (formData: LoginFormData) => {
          secure: c.secure,
          path: c.path,
          maxAge: c.maxAge,
-         sameSite: c.sameSite as 'strict' | 'lax' | 'none',
+         // sameSite: c.sameSite as 'strict' | 'lax' | 'none',
+         sameSite: 'strict',
          expires: c.expires,
       });
    }
@@ -26,4 +29,4 @@ const loginUserAction = async (formData: LoginFormData) => {
    return body;
 };
 
-export default loginUserAction;
+export default socialLoginUserAction;

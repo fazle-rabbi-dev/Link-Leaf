@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { Label } from '@/components/ui/label';
-import { FieldError } from '@/components/ui/field';
+import { Label } from "@/components/ui/label";
+import { FieldError } from "@/components/ui/field";
 import {
    InputGroup,
    InputGroupAddon,
    InputGroupInput,
-} from '@/components/ui/input-group';
-import { Input } from '@/components/ui/input';
-import { EyeIcon, EyeOffIcon, type FormField } from '@/constants/authform';
+} from "@/components/ui/input-group";
+import { Input } from "@/components/ui/input";
+import { EyeIcon, EyeOffIcon, type FormField } from "@/constants/authform";
 
 interface FormFieldProps {
    field: FormField;
@@ -38,7 +38,7 @@ export const FormInputField = ({
                <Input
                   id={field.name}
                   placeholder={field.placeholder}
-                  className="h-full rounded-l-none placeholder:text-xs"
+                  className="h-full rounded-l-none placeholder:text-sm"
                   disabled={disabled}
                   aria-invalid={!!error}
                   {...register(field.name)}
@@ -53,11 +53,11 @@ export const FormInputField = ({
                   id={field.name}
                   type={
                      field.isPassword && showPassword
-                        ? 'text'
-                        : (field.type ?? 'text')
+                        ? "text"
+                        : (field.type ?? "text")
                   }
                   placeholder={field.placeholder}
-                  className="placeholder:text-xs"
+                  className="placeholder:text-sm"
                   disabled={disabled}
                   {...register(field.name)}
                />
