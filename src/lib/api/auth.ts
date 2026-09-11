@@ -208,7 +208,7 @@ export const getLoggedInUser = async (
 
 export const updateUser = async (formData: FormData | ProfileFormData) => {
    try {
-      const result = await apiRequest<UpdateUserResponse>('/users/me', {
+      const result = await apiRequestWithAuth<UpdateUserResponse>('/users/me', {
          method: 'PATCH',
          body: formData,
       });
