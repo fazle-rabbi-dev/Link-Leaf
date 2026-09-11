@@ -20,12 +20,14 @@ const AuthHydrate = ({
    useEffect(() => {
       logger.info('🎨 AuthHydrate component mounted');
       hydrateAuth();
-   }, []); // ? empty dependency array to run only once at first mount
+   }, []);
 
    // prevent browser back button taking to private page after logout
    useEffect(() => {
-      if (!isLoading && !isLoggedIn) Router.replace('/auth');
-   }); // ? no dependency array to run on every render
+      if (!isLoading && !isLoggedIn) {
+         Router.replace('/auth');
+      }
+   }, [isLoading]);
 
    return <div>{children}</div>;
 };

@@ -1,5 +1,5 @@
 import { LoginFormData, RegisterFormData } from '@/validations/auth.validation';
-import { apiRequest, type ApiResult } from './client';
+import { apiRequest, apiRequestWithAuth, type ApiResult } from './client';
 import type {
    FetchedUserResponse,
    FetchedUserSuccessResponse,
@@ -142,7 +142,7 @@ export const getLoggedInUser = async (
    let refreshResponse: Response | null = null;
 
    try {
-      result = await apiRequest<FetchedUserResponse>('/users/me', {
+      result = await apiRequestWithAuth<FetchedUserResponse>('/users/me', {
          headers,
       });
 
@@ -151,7 +151,7 @@ export const getLoggedInUser = async (
          // it's ok to use: type -> FetchedUserSuccessResponse here since both contains same shape
          logger.info('🔁 Refreshing token with:', headers);
 
-         const res = await apiRequest<RefreshTokenSuccessResponse>(
+         const res = await apiRequestWithAuth<RefreshTokenSuccessResponse>(
             '/auth/refresh-token',
             {
                method: 'POST',
@@ -182,11 +182,14 @@ export const getLoggedInUser = async (
          // 🚨 but with new accessToken because refresh only happens when no valid accessToken
          logger.success('Token refreshed successfully');
 
-         result = await apiRequest<FetchedUserSuccessResponse>('/users/me', {
-            headers: {
-               Cookie: `accessToken=${res.body.data.accessToken}`,
+         result = await apiRequestWithAuth<FetchedUserSuccessResponse>(
+            '/users/me',
+            {
+               headers: {
+                  Cookie: `accessToken=${res.body.data.accessToken}`,
+               },
             },
-         });
+         );
       }
 
       logger.success('User fetched successfully', {
