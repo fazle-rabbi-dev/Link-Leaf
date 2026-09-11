@@ -11,7 +11,6 @@ const loginUserAction = async (formData: LoginFormData) => {
 
    const rawCookies = response?.headers.getSetCookie?.() ?? [];
    const parsedCookies = setCookieParser.parse(rawCookies, { map: false });
-   console.log(parsedCookies);
 
    for (const c of parsedCookies) {
       cookieStore.set(c.name, c.value, {

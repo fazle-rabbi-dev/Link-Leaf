@@ -22,8 +22,6 @@ const shapeOptions: { shape: ButtonShape; label: string; className: string }[] =
 
 // Scaffold with ai
 const renderFeatureCardFeatures = (feature: string) => {
-   console.log('re-rendered');
-
    // Appearance
    const [selectedColor, setSelectedColor] = useState<ButtonColor>('green');
    const [selectedShape, setSelectedShape] = useState<ButtonShape>('pill');
@@ -67,8 +65,6 @@ const renderFeatureCardFeatures = (feature: string) => {
 
          // Your event listeners
          swapy.current.onSwapEnd((event) => {
-            console.log(event.slotItemMap.asArray);
-
             const newOrder = event.slotItemMap.asArray;
             // newOrder = [{slot: "1", item: "2"}, {slot: "2", item: "1"}, {slot: "3", item: "3"}]
             //                                ↑ item value = your link.id (as string)

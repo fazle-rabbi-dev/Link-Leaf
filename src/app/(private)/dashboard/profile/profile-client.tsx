@@ -95,8 +95,6 @@ const ProfileClient = ({
          let body: FormData | ProfileFormData;
 
          if (avatarFile) {
-            console.log('avatarFile is still presetn');
-
             const formData = new FormData();
             formData.append('name', data.name || '');
             formData.append('username', data.username || '');
@@ -263,11 +261,11 @@ const ProfileClient = ({
                   </Button>
                   <Button
                      type="button"
-                     variant={isPublished ? 'destructive' : 'secondary'}
+                     variant={isPublished ? 'destructive' : 'outline'}
                      className="w-full sm:w-auto px-8 cursor-pointer"
                      onClick={handlePublishProfile}
                   >
-                     {isPublished ? 'Unpublish' : '🎉 Publish'}
+                     {isPublished ? 'Unpublish profile' : '🎉 Publish profile'}
                   </Button>
                </div>
             </form>

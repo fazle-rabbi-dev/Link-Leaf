@@ -19,6 +19,7 @@ import {
    changeSocialPosition,
    saveAppearanceChanges,
 } from '@/lib/api/appearance';
+import logger from '@/lib/logger';
 
 interface AppearanceState {
    selectedPreset: PresetThemeKey | null;
@@ -147,7 +148,7 @@ export const useAppearanceStore = create<AppearanceState>((set, get) => ({
    },
 
    log: (label, overrides, forcedType) => {
-      console.log(
+      logger.log(
          `[appearance] ${label}:`,
          get().buildPayload(overrides, forcedType),
       );
