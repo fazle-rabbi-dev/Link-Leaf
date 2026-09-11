@@ -6,6 +6,10 @@
   </p>
 </div>
 
+<div align="center">
+   <img width="70%" src="./public/ss/mockup.png" />
+</div>
+
 ## 🔭 Overview
 
 **Link-Leaf** is a web app that lets users create a personalized profile page to aggregate all their important links - social media, portfolios, blogs, and more - into a single shareable URL. Think of it as your digital identity hub.
@@ -49,10 +53,10 @@ Users can sign up, customize their profile with themes and colors, add social an
 ## 📸 Screenshots
 
 <div align="center">
-<img width="48%" src="/public/screenshots/landing.png" />
-<img width="48%" src="/public/screenshots/dashboard.png" />
-<img width="48%" src="/public/screenshots/profile.png" />
-<img width="48%" src="/public/screenshots/appearance.png" />
+<img width="48%" src="./public/ss/profile-rabbi.png" />
+<img width="48%" src="./public/ss/profile.png" />
+<img width="48%" src="./public/ss/appearance.png" />
+<img width="48%" src="./public/ss/links.png" />
 </div>
 
 ## 🛠️ Tech Stack
