@@ -1,26 +1,24 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
+import { signInWithPopup } from 'firebase/auth';
 
 import { Button } from '@/components/ui/button';
 import {
    socialLoginButtons,
    type SocialLoginProvider,
 } from '@/constants/authform';
-
 import AuthFooter from './auth-footer';
 import AuthHeader from './auth-header';
 import LoginForm from './login-form';
 import RegisterForm from './register-form';
 import { cn } from '@/lib/utils';
-
-import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider, githubProvider } from '@/lib/firebase/config';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/ui/spinner';
-import { loginUserWithSocial } from '@/lib/api/auth';
 import logger from '@/lib/logger';
+import socialLoginUserAction from '@/actions/socialLogin';
 
 type AuthMode = 'login' | 'register';
 
@@ -48,13 +46,10 @@ const AuthForm = () => {
          logger.success('Social login provider response:', result);
 
          // send data to backend
-         const { body } = await loginUserWithSocial({
-            provider,
-            userId: result.user.uid,
-         });
+         const body = await socialLoginUserAction(provider, result.user.uid);
 
          if (body.success) {
-            toast.success('Login successful');
+            toast.success(body.message);
             Router.replace('/dashboard/profile');
          } else throw new Error(body.message);
       } catch (error) {
