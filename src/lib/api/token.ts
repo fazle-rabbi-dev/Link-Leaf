@@ -1,14 +1,17 @@
 const ACCESS_TOKEN_KEY = 'accessToken';
 
 export function getAccessToken(): string | null {
-   if (typeof window === 'undefined') return null;
-   return localStorage.getItem(ACCESS_TOKEN_KEY);
-}
+   if (typeof document === 'undefined') return null;
 
-export function setAccessToken(token: string): void {
-   localStorage.setItem(ACCESS_TOKEN_KEY, token);
-}
+   const cookieString = document.cookie;
+   if (!cookieString) return null;
 
-export function clearAccessToken(): void {
-   localStorage.removeItem(ACCESS_TOKEN_KEY);
+   const cookies = cookieString.split('; ');
+   const targetCookie = cookies.find((cookie) =>
+      cookie.startsWith(`${ACCESS_TOKEN_KEY}=`),
+   );
+
+   if (!targetCookie) return null;
+
+   return decodeURIComponent(targetCookie.split('=').slice(1).join('='));
 }

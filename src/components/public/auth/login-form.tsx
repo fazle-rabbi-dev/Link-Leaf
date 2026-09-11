@@ -13,7 +13,6 @@ import { loginFields } from '@/constants/authform';
 import { FormInputField } from '@/components/ui/form-input-field';
 import logger from '@/lib/logger';
 import loginUserAction from '@/actions/login';
-import { setAccessToken } from '@/lib/api/token';
 
 type LoginFormProps = {
    isLoading: boolean;
@@ -40,9 +39,6 @@ const LoginForm = ({ isLoading, setIsLoading }: LoginFormProps) => {
          const body = await loginUserAction(formData);
 
          if (body.success) {
-            // save accessToken in localstorage to use for crud operation
-            setAccessToken(body.data.accessToken);
-
             toast.success(body.message);
             Router.replace('/dashboard/profile');
             // auth state update happens from profile page
