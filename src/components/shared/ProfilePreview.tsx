@@ -149,7 +149,7 @@ function LinkList({
                <div
                   key={t}
                   className={cn(
-                     'h-11 w-full flex-center text-sm font-semibold shadow-sm border',
+                     'h-11 w-full flex-center justify-center text-sm font-semibold shadow-sm border',
                      shapeCls,
                   )}
                   style={{
