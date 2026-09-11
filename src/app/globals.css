@@ -215,6 +215,36 @@
       line-height: 1.6;
    }
 
+   ::selection {
+      background: var(--primary);
+      color: var(--primary-foreground);
+   }
+
+   /* Custom cozy cursors - mouse devices only */
+   /* @media (hover: hover) and (pointer: fine) {
+      html,
+      body {
+         cursor:
+            url('/cursors/arrow.svg') 5 3,
+            auto;
+      }
+
+      a,
+      button,
+      select,
+      summary,
+      label[for],
+      input[type='checkbox'],
+      input[type='radio'],
+      input[type='submit'],
+      input[type='button'],
+      [role='button'] {
+         cursor:
+            url('/cursors/hand.svg') 10 3,
+            pointer;
+      }
+   } */
+
    input::placeholder,
    textarea::placeholder {
       font-size: var(--font-size-sm);
