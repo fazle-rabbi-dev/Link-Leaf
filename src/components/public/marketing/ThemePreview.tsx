@@ -1,12 +1,13 @@
+import { APP_URL } from '@/lib/env';
 import SectionHeader from './SectionHeader';
 
 const PREVIEWS = [
    {
-      src: 'http://localhost:3000/rabbi',
-      title: 'fazlerabbi1343 profile preview',
+      src: `${APP_URL}/rabbi`,
+      title: 'fazle rabbi profile preview',
    },
    {
-      src: 'http://localhost:3000/antonio',
+      src: `${APP_URL}/antonio`,
       title: 'antonio profile preview',
    },
 ];
