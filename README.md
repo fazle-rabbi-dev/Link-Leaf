@@ -2,12 +2,12 @@
   <img width="70" src="./public/android-chrome-512x512.png" alt="Link-Leaf - Logo" />
   <h1>Link-Leaf</h1>
   <p>
-    A modern, <b>open-soure</b>, feature rich, and highly customizable Linktree web app.
+    A modern, <b>open-source</b>, feature rich, and highly customizable Linktree web app.
   </p>
 </div>
 
 <div align="center">
-   <img width="70%" src="./public/ss/mockup.png" />
+   <img width="83%" src="./public/ss/mockup.png" />
 </div>
 
 ## 🔭 Overview
@@ -22,10 +22,9 @@ Users can sign up, customize their profile with themes and colors, add social an
 
 ## Live Demo 🎉
 
-- 🌐 Explore the live version of **Link-Leaf** here:
-   - https://link-leaf.vercel.app
-- ⚙️ Explore the backend code here: https://github.com/fazle-rabbi-dev/link-leaf-backend
-- 🚚 The backend is hosted on Vercel: https://api-dot-link-leaf.vercel.app
+- 🌐 **App:** [link-leaf.vercel.app](https://link-leaf.vercel.app)
+- ⚙️ **Backend repo:** [link-leaf-backend](https://github.com/fazle-rabbi-dev/link-leaf-backend)
+- 🚀 **Backend API:** [api-dot-link-leaf.vercel.app](https://api-dot-link-leaf.vercel.app)
 
 ---
 
