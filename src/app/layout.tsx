@@ -59,6 +59,12 @@ export default function RootLayout({
             // 'font-sans',
          )}
       >
+         <head>
+            <meta
+               name="google-site-verification"
+               content="bBOJ8YhTLw-vz1qayvGCHKw3GnTLPoQ4RWRodFvBqI4"
+            />
+         </head>
          <body>
             <ThemeProvider>
                {children}
